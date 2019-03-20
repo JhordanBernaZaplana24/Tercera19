@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/Colecciones/Colecciones.iml" filepath="$PROJECT_DIR$/Colecciones/Colecciones.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/Tercera19.iml" filepath="$PROJECT_DIR$/.idea/Tercera19.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Ventanas/Ventanas.iml" filepath="$PROJECT_DIR$/Ventanas/Ventanas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/excepciones/excepciones.iml" filepath="$PROJECT_DIR$/excepciones/excepciones.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/Tercera19.iml" filepath="$PROJECT_DIR$/.idea/Tercera19.iml" />
->>>>>>> origin/master
+      <module fileurl="file://$PROJECT_DIR$/collections/collections.iml" filepath="$PROJECT_DIR$/collections/collections.iml" />
     </modules>
   </component>
 </project>
