@@ -13,7 +13,7 @@ public class Ambulatorio {
         doctor.add(new Caso("Clara",2));
         doctor.add(new Caso("Delia",3));
         doctor.add(new Caso("Elena",4));
-        doctor.add(new Caso("Flori",1));
+        doctor.add(new Caso("Flori",1));//que listo es esto
         Iterator<Caso> iterator=doctor.iterator();
         while(iterator.hasNext()){
             Caso actual=iterator.next();
