@@ -16,9 +16,19 @@ public class ExpresionParentesis {
         //Comprobar lo del tamaño
 
         ventana.add(miPanel.getPanel());
-        ventana.setResizable(false);
+        ventana.setResizable(true);
         ventana.setBounds(40,40,350,100);
         ventana.setLocationRelativeTo(null);
+        
+        ventana.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                System.out.println(ventana.getWidth());
+            }
+        });
+
+        
         ventana.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ventana.setVisible(true);
     }
