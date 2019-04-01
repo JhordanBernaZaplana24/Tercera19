@@ -1,13 +1,12 @@
 package es.orricoquiles.calculadora;
 
-import com.sun.deploy.panel.JavaPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PanelNumeros extends JavaPanel {
+public class PanelNumeros extends JPanel {
 
     JButton[] botones=new JButton[10];
     JButton borrar=new JButton("CE");

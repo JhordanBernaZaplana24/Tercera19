@@ -32,6 +32,7 @@ public class PanelGrupo extends JPanel{
         visibles.add(nombre);
         visibles.add(new JLabel("Hit: "));
         visibles.add(hit);
+        hit.setCaretPosition(0);
         visibles.add(new JLabel("Ventas: "));
         visibles.add(ventas);
         for (Component c :
@@ -66,6 +67,7 @@ public class PanelGrupo extends JPanel{
     public void setGrupo(Grupo grupo){
         this.nombre.setText(grupo.getNombre());
         this.hit.setText(grupo.getHit());
+        hit.setCaretPosition(0);
         this.ventas.setText(""+grupo.getVentasMundiales());
 
     }

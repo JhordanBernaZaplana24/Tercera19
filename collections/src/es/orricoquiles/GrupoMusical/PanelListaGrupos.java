@@ -2,6 +2,8 @@ package es.orricoquiles.GrupoMusical;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
@@ -12,57 +14,65 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PanelListaGrupos extends JPanel {
-    static List<Grupo> elegidos=new ArrayList<>();
+    List<Grupo> elegidos=new ArrayList<>();
     List<Grupo> lista=new ArrayList<>();
-    public static void main(String[] args) throws IOException {
-        PanelListaGrupos panelListaGrupos=new PanelListaGrupos();
-        List<String> lineas= Files.readAllLines(Paths.get("grupos.txt"));
+    int inicial=0;
+    PanelGrupo[] paneles=new PanelGrupo[3];
+    JScrollBar barra=new JScrollBar();
+
+    public PanelListaGrupos(String fichero) {
+        List<String> lineas= null;
+        try {
+            lineas = Files.readAllLines(Paths.get("grupos.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Iterator<String> iterador=lineas.iterator();
         while(iterador.hasNext()){
-            panelListaGrupos.lista.add(new Grupo(
+            this.lista.add(new Grupo(
                     iterador.next(),
                     iterador.next(),
                     Integer.parseInt(iterador.next())
             ));
         }
-        JFrame frame=new JFrame();
-        JPanel panel=new JPanel();
-        panel.setLayout(new GridLayout(0,2));
-        for (Grupo g :
-                panelListaGrupos.lista) {
-            PanelGrupo p=new PanelGrupo(g);
-            p.setBounds(0,0,40,40);
-            panel.add(p);
-            Checkbox c=new Checkbox();
-            panel.add(c);
-            c.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    notifica(g,e.getStateChange());
-                }
-            });
+        JPanel listaGrupos=new JPanel(new GridLayout(0,1));
+        this.setLayout(new BorderLayout());
+        for (int i=0;i<paneles.length;i++){
+            paneles[i]=new PanelGrupo();
+            listaGrupos.add(paneles[i]);
         }
-        JScrollPane scrollPane=new JScrollPane(panel);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(106);
-        frame.add(scrollPane);
-        frame.setBounds(10,10,640,350);
-//        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        actualiza(0);
+        add(barra,BorderLayout.EAST);
+        add(listaGrupos,BorderLayout.CENTER);
+        barra.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                actualiza(e.getValue());
+            }
+        });
+
+
     }
 
-    private static void notifica(Grupo g, int stateChange) {
-//        System.out.println("Pulsado " + g.info() + " con " + stateChange);
-        if(stateChange==1){
-           elegidos.add(g);
-        } else {
-            elegidos.remove(g);
+    private void actualiza(int inicial) {
+        for (int i = 0; i < paneles.length; i++) {
+            if(i<lista.size()) {
+                paneles[i].setGrupo(lista.get(i + inicial));
+            }
         }
-        System.out.println("Tienes seleccionados: ");
-        for (Grupo grupo :
-                elegidos) {
-            System.out.println("   " + grupo.info());
-        }
+        barra.setUnitIncrement(1);
+        barra.setMinimum(0);
+        barra.setMaximum(lista.size());
+        barra.setVisibleAmount(paneles.length);
+    }
 
+    public static void main(String[] args) throws IOException {
+        PanelListaGrupos panelListaGrupos=new PanelListaGrupos("grupos.txt");
+        JFrame frame=new JFrame("PEPE");
+        frame.add(panelListaGrupos);
+        frame.setBounds(10,10,650,350);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
